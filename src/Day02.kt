@@ -17,18 +17,20 @@ fun main() {
         var horizontal = 0
         var vertical = 0
         input.forEach { command ->
-                val power = command.split(" ")[1].toInt()
-                if (command.startsWith("forward")) {
+            val (direction, power) = command.split(" ")
+            when (direction) {
+                "forward" -> {
                     horizontal += power
                     vertical += aim * power
                 }
-                if (command.startsWith("down")) {
+                "down" -> {
                     aim += power
                 }
-                if (command.startsWith("up")) {
+                else -> {
                     aim -= power
                 }
             }
+        }
         return horizontal * vertical
     }
 
