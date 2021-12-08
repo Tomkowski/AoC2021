@@ -1,13 +1,7 @@
 fun main() {
     fun part1(input: List<String>): Int {
-        val riddle = input.map { it.split(" | ")[0] }
         val output = input.map { it.split(" | ")[1] }
-
-        return output.map { row ->
-            row.split(" ").count { segment ->
-                segment.length == 2 || segment.length == 3 || segment.length == 4 || segment.length == 7
-            }
-        }.sum()
+        return output.map { it.split(" ").count { segment -> segment.length in listOf(2, 3, 4, 7) } }.sum()
     }
 
     val digitDictionary = mapOf(
@@ -53,6 +47,7 @@ fun main() {
 
         val c = number2!!.intersect(riddle[2]!!.first()).first()
         brokenDigits[c] = 'c'
+
         val f = riddle[2]!!.first().subtract(listOf(c)).first()
         brokenDigits[f] = 'f'
 
@@ -64,16 +59,15 @@ fun main() {
 
         val mapped = output.split(" ")
             .map { number -> number.map { digit -> brokenDigits[digit] }.sortedBy { it }.joinToString("") }
-        return mapped.fold(0) { acc, number ->
-            10 * acc + digitDictionary[number]!!
-        }
+
+        return mapped.fold(0) { acc, number -> 10 * acc + digitDictionary[number]!! }
     }
 
     fun part2(input: List<String>): Int {
         val riddle = input.map { it.split(" | ")[0] }
         val output = input.map { it.split(" | ")[1] }
 
-        return riddle.zip(output).fold(0) { acc, pair -> acc + solveRiddle(pair.first, pair.second) }
+        return riddle.zip(output).sumOf { pair -> solveRiddle(pair.first, pair.second) }
     }
 
     val input = readInput("day08")
