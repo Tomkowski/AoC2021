@@ -16,5 +16,7 @@ operator fun Int.plus(string: String) = this + string.toInt()
 operator fun Int.times(string: String) = this * string.toInt()
 operator fun Int.minus(string: String) = this - string.toInt()
 
+operator fun String.minus(number: Int) = this.toInt() - number
+operator fun String.compareTo(number: Int) = this.toInt().compareTo(number)
 operator fun Char.plus(number: Int) = (48 + this.digitToInt() + number).toChar()
 operator fun Char.rem(number: Int) = (48 + ((this.code - 48) % number)).toChar()
