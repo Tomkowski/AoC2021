@@ -25,24 +25,18 @@ fun main() {
     fun countVersion(input: String): Long {
         var mutableInput = input
         var versionCount = 0L
-        var topPosition = 0
         while (mutableInput.length > 9) {
-            val version = mutableInput.take(3).toInt(2)
             versionCount += 1
             val type = mutableInput.drop(3).take(3).toInt(2)
             if (type == 4) {
-                if(topPosition > 0) topPosition -= 1
                 mutableInput = mutableInput.drop(6)
                 while (mutableInput[0] != '0') {
                     mutableInput = mutableInput.drop(5)
                 }
                 mutableInput = mutableInput.drop(5)
             } else {
-
-//                if(topPosition == 0) versionCount += 1
                 if (mutableInput[6] == '1') {
                     val amount = mutableInput.drop(7).take(11).toInt(2)
-                    mutableInput = mutableInput.drop(18)
                     return amount.toLong()
                 }
                 else{
